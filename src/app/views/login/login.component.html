@@ -1,0 +1,29 @@
+<spinner></spinner>
+<div class="container bg">
+  <form [formGroup]="loginForm" (submit)="doLogin()">
+    <mat-card class="form">
+      <mat-card-header class="mat-header-custom">
+        <mat-card-title class="p-40 text-header">Real Time Chat App</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field class="w-90 m-b15 m-l5">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Nhập email..." formControlName="email">
+          <mat-error *ngIf="loginForm.controls['email'].hasError('required')">Vui lòng nhập thông tin</mat-error>
+          <mat-error *ngIf="loginForm.controls['email'].hasError('pattern')">Định dạng mail không hợp lệ</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-90 m-b15 m-l5">
+          <mat-label>Mật khẩu</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Nhập mật khẩu.." formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Vui lòng nhập thông tin</mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <button mat-raised-button color="primary">Đăng nhập</button>
+    </mat-card>
+  </form>
+</div>

@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { switchMap, tap } from 'rxjs';
 import { ProfileUser } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -29,15 +30,23 @@ export class ProfileComponent implements OnInit {
     private imageUploadService: ImageUploadService,
     private toast: HotToastService,
     private usersService: UsersService,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.usersService.currentUserProfile$
-      .pipe(untilDestroyed(this), tap(console.log))
-      .subscribe((user) => {
-        this.profileForm.patchValue({ ...user });
-      });
+    this.usersService.currentUserProfile$.subscribe((user) => {
+      console.log('user', user);
+      this.profileForm.patchValue({ ...user });
+    });
+    this.getCurrentUser();
+  }
+  getCurrentUser() {
+    this.auth.currentUser$.subscribe((res) => {
+      if (res?.uid) {
+        console.log('res', res);
+      }
+    });
   }
 
   uploadFile(event: any, { uid }: ProfileUser) {

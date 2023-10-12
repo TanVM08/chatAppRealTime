@@ -19,6 +19,7 @@ export class UsersService {
   constructor(private firestore: Firestore, private authService: AuthService) {}
 
   get currentUserProfile$(): Observable<ProfileUser | null> {
+    debugger;
     return this.authService.currentUser$.pipe(
       switchMap((user) => {
         if (!user?.uid) {

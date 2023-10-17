@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
     this.getCurrentUser();
   }
   getCurrentUser() {
-    this.auth.currentUser$.subscribe((res) => {
+    this.auth.currentUser.subscribe((res) => {
       if (res?.uid) {
         console.log('res', res);
       }

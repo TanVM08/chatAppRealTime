@@ -4,12 +4,13 @@
 
 export const environment = {
   firebase: {
-    apiKey: 'AIzaSyChyrQOvph3mZt6Sqi2ErZD5FknLvi7n40',
-    authDomain: 'angular-sign-up-719ed.firebaseapp.com',
-    projectId: 'angular-sign-up-719ed',
-    storageBucket: 'angular-sign-up-719ed.appspot.com',
-    messagingSenderId: '378550273300',
-    appId: '1:378550273300:web:494c048877b2fdaaf62e01',
+    apiKey: "AIzaSyAO48fCOZkNv96unlvg-YuF9EQzmRJWYHU",
+    authDomain: "real-time-chat-cb8b6.firebaseapp.com",
+    projectId: "real-time-chat-cb8b6",
+    storageBucket: "real-time-chat-cb8b6.appspot.com",
+    messagingSenderId: "822629536116",
+    appId: "1:822629536116:web:730b30f1775e4f1b535c21",
+    measurementId: "G-CEZ7237RWY"
   },
   production: false,
 };

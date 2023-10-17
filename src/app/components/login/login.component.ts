@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -10,46 +12,44 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-  });
 
   constructor(
     private authService: AuthService,
-    private toast: HotToastService,
+    private toast: ToastService,
     private router: Router,
-    private fb: NonNullableFormBuilder
-  ) {}
+    private fb: NonNullableFormBuilder,
+    private spinner: NgxSpinnerService,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$/)]],
+    password: ['', Validators.required],
+  });
 
-  get email() {
-    return this.loginForm.get('email');
-  }
-
-  get password() {
-    return this.loginForm.get('password');
+  getValueForm(value: string) {
+    this.loginForm.get(value)?.value
   }
 
   submit() {
-    const { email, password } = this.loginForm.value;
-
-    if (!this.loginForm.valid || !email || !password) {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.toast.showWarning('Thông báo','Kiểm tra thông tin đầu vào')
       return;
     }
-
-    this.authService
-      .login(email, password)
-      .pipe(
-        this.toast.observe({
-          success: 'Logged in successfully',
-          loading: 'Logging in...',
-          error: ({ message }) => `There was an error: ${message} `,
-        })
-      )
-      .subscribe(() => {
+    let email = this.loginForm.controls['email'].value
+    let password = this.loginForm.controls['password'].value
+    this.spinner.show();
+    this.authService.login(email, password).subscribe(
+      (res) => {
+        this.spinner.hide();
+        this.toast.showSuccess('Thông báo', 'Đăng nhập thành công')
         this.router.navigate(['/home']);
-      });
+      },
+      (erorr) => {
+        this.spinner.hide();
+        this.toast.showError(erorr.message ? erorr.message : erorr);
+      }
+    );
   }
 }

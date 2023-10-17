@@ -12,7 +12,7 @@ import { Observable, from } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  currentUser$ = authState(this.auth);
+  currentUser = authState(this.auth);
 
   constructor(private auth: Auth) {}
 

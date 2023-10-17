@@ -21,7 +21,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileComponent } from './components/profile/profile.component';
 import { getStorage, provideStorage } from '@angular/fire/storage';
-
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { SpinnerComponent } from './components/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +31,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     SignUpComponent,
     HomeComponent,
     ProfileComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,8 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     provideStorage(() => getStorage()),
     HotToastModule.forRoot(),
     MatMenuModule,
+    ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

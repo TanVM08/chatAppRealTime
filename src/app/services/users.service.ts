@@ -20,8 +20,9 @@ export class UsersService {
 
   get currentUserProfile$(): Observable<ProfileUser | null> {
     debugger;
-    return this.authService.currentUser$.pipe(
+    return this.authService.currentUser.pipe(
       switchMap((user) => {
+        debugger
         if (!user?.uid) {
           return of(null);
         }

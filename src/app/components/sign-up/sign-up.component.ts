@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { UsersService } from 'src/app/services/users.service';
 
 export function passwordsMatchValidator(): ValidatorFn {
@@ -46,7 +47,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toast: HotToastService,
+    private toast: ToastService,
     private usersService: UsersService,
     private fb: NonNullableFormBuilder
   ) {}
@@ -80,16 +81,22 @@ export class SignUpComponent implements OnInit {
       .signUp(email, password)
       .pipe(
         switchMap(({ user: { uid } }) =>
-          this.usersService.addUser({ uid, email, displayName: name })
-        ),
-        this.toast.observe({
-          success: 'Congrats! You are all signed up',
-          loading: 'Signing up...',
-          error: ({ message }) => `${message}`,
-        })
+          this.usersService.addUser({
+            uid,
+            email,
+            displayName: name,
+            password: password,
+          })
+        )
       )
-      .subscribe(() => {
-        this.router.navigate(['/home']);
-      });
+      .subscribe(
+        () => {
+          this.router.navigate(['/home']);
+          this.toast.showSuccess('Thông báo', 'Đăng kí tài khoản thàng công');
+        },
+        (error) => {
+          this.toast.showWarning(error.message ? error.message : error);
+        }
+      );
   }
 }

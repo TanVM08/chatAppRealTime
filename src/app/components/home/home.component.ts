@@ -8,9 +8,15 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  user$ = this.usersService.currentUserProfile$;
-
+  lstUser: any = [];
   constructor(private usersService: UsersService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllUsers();
+  }
+  getAllUsers() {
+    this.usersService.getAllUser().subscribe((res: any) => {
+      this.lstUser = res;
+    });
+  }
 }

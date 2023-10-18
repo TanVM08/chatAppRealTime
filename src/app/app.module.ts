@@ -22,8 +22,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ProfileComponent } from './components/profile/profile.component';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { ToastrModule } from 'ngx-toastr';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,9 +49,10 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     HotToastModule.forRoot(),
+    NgxSpinnerModule,
     MatMenuModule,
     ToastrModule.forRoot(),
-    NgxSpinnerModule
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

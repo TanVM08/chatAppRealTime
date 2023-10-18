@@ -1,13 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="accent">
   Chat với tao
   <ng-container *ngIf="user$ | async as user; else loginButton">
     <button mat-button [matMenuTriggerFor]="userMenu">
-      <img
-        width="30"
-        height="30"
-        class="profile-image-toolbar"
-        [src]="user.photoURL ?? 'assets/images/image-placeholder.png'"
-      />
+      <img width="30" height="30" class="profile-image-toolbar"
+        [src]="user.photoURL ?? 'assets/images/image-placeholder.png'" />
       {{ user.displayName }}
       <mat-icon>expand_more</mat-icon>
     </button>
@@ -20,7 +16,7 @@
   </ng-template>
 </mat-toolbar>
 
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>
 
 <mat-menu #userMenu="matMenu">
   <button mat-menu-item routerLink="/profile">

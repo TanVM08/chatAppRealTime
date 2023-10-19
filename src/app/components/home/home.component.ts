@@ -9,11 +9,13 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  userCurent: any
+  userCurent: any;
   lstUser: any = [];
+  lstChat: any = [];
   constructor(
     private usersService: UsersService,
-    private chatService: ChatsService) { }
+    private chatService: ChatsService
+  ) {}
 
   ngOnInit(): void {
     this.getUserCurent();
@@ -21,9 +23,10 @@ export class HomeComponent implements OnInit {
   }
 
   getUserCurent() {
-    this.usersService.currentUserProfile$.subscribe(res => {
+    this.usersService.currentUserProfile$.subscribe((res) => {
       this.userCurent = res;
-    })
+      this.getListChat(this.userCurent.uid);
+    });
   }
   getAllUsers() {
     this.usersService.getAllUser().subscribe((res: any) => {
@@ -32,20 +35,26 @@ export class HomeComponent implements OnInit {
   }
 
   createChat(item: ProfileUser) {
-    debugger
     let chat: object = {
       userIds: [this.userCurent?.uid, item.uid],
       users: [
         {
           displayName: this.userCurent?.displayName ?? '',
-          photoUrl: this.userCurent?.photoUrl ?? ''
+          photoURL: this.userCurent?.photoURL ?? '',
         },
         {
           displayName: item?.displayName ?? '',
-          photoUrl: item?.photoURL ?? ''
-        }
-      ]
-    }
+          photoURL: item?.photoURL ?? '',
+        },
+      ],
+    };
     this.chatService.createChat(chat);
+  }
+
+  getListChat(userId: any) {
+    this.chatService.myListChat(userId).subscribe((res) => {
+      this.lstChat = res;
+      console.log('lstChat', this.lstChat);
+    });
   }
 }

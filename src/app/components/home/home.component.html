@@ -4,9 +4,15 @@
       <mat-form-field class="full-width">
         <mat-label>Danh sách bạn bè</mat-label>
         <mat-select>
-          <mat-option *ngFor="let user of lstUser" >
+          <mat-option *ngFor="let user of lstUser" (click)="createChat(user)">
             {{user.displayName}}
           </mat-option>
+
+          <!-- <mat-selection-list #shoes [multiple]="false">
+            <mat-list-option *ngFor="let chat of lstChat" [value]="shoe">
+              {{shoe}}
+            </mat-list-option>
+          </mat-selection-list> -->
         </mat-select>
       </mat-form-field>
     </div>

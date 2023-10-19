@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +54,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     ToastrModule.forRoot(),
     MatSelectModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

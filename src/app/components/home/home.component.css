@@ -1,18 +1,35 @@
-.container{
+.container {
   display: flex;
   height: calc(100vh - 70px);
 }
-.chat-list{
+
+.chat-list {
   width: 30%;
   background-color: #c5cae9;
   border-radius: 16px;
   margin: 20px;
 }
-.messages{
+
+.messages {
   width: 70%;
   border-radius: 16px;
   margin: 20px;
 }
-.search-input{
+
+.search-input {
   margin: 16px;
+}
+
+.chat {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.chat-name {
+  font-weight: 600;
+}
+
+.chat-date {
+  font-size: 0.7rem;
+  color: rgb(0, 0, 0, 0.7);
 }

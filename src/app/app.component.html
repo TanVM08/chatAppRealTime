@@ -1,5 +1,5 @@
-<mat-toolbar color="accent">
-  HELLO
+<mat-toolbar color="accent" *ngIf="user$ | async as user">
+  Chat with me 
   <ng-container *ngIf="user$ | async as user; else loginButton">
     <button mat-button [matMenuTriggerFor]="userMenu">
       <img width="30" height="30" class="profile-image-toolbar"

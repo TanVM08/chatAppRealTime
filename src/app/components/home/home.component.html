@@ -7,15 +7,22 @@
           <mat-option *ngFor="let user of lstUser" (click)="createChat(user)">
             {{user.displayName}}
           </mat-option>
-
-          <!-- <mat-selection-list #shoes [multiple]="false">
-            <mat-list-option *ngFor="let chat of lstChat" [value]="shoe">
-              {{shoe}}
-            </mat-list-option>
-          </mat-selection-list> -->
         </mat-select>
       </mat-form-field>
     </div>
+
+    <mat-selection-list [multiple]="false">
+      <mat-divider></mat-divider>
+      <mat-list-option *ngFor="let chat of lstChat" [value]="chat.id">
+        <img matListAvatar [src]="chat.avatar?chat.avatar: '/assets/images/image-placeholder.png'">
+        <p mat-line class="chat">
+          <span class="chat-name"> {{chat.chatName}}</span>
+          <span class="chat-date">10/06/2023</span>
+        </p>
+        <p mat-line>Hey guy! how are you</p>
+        <mat-divider></mat-divider>
+      </mat-list-option>
+    </mat-selection-list>
   </div>
   <div class="messages mat-elevation-z5"></div>
 </div>

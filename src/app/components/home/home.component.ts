@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private chatService: ChatsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUserCurent();
@@ -25,7 +25,9 @@ export class HomeComponent implements OnInit {
   getUserCurent() {
     this.usersService.currentUserProfile$.subscribe((res) => {
       this.userCurent = res;
-      this.getListChat(this.userCurent.uid);
+      if (this.userCurent.uid) {
+        this.getListChat(this.userCurent.uid);
+      }
     });
   }
   getAllUsers() {
@@ -53,7 +55,14 @@ export class HomeComponent implements OnInit {
 
   getListChat(userId: any) {
     this.chatService.myListChat(userId).subscribe((res) => {
-      this.lstChat = res;
+      if (res) {
+        this.lstChat = res;
+        this.lstChat.map((item: any) => {
+          let index = item.userIds.indexOf(userId) == 0 ? 1 : 0;
+          item.chatName = item.users[index].displayName;
+          item.avatar = item.users[index].photoURL == "" ? null : item.users[index].photoURL;
+        })
+      }
       console.log('lstChat', this.lstChat);
     });
   }

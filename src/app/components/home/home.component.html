@@ -17,9 +17,9 @@
         <img matListAvatar [src]="chat.avatar ? chat.avatar: '/assets/images/image-placeholder.png'">
         <p mat-line class="chat">
           <span class="chat-name"> {{chat.chatName}}</span>
-          <span class="chat-date">10/06/2023</span>
+          <span class="chat-date">{{chat.lastMessageDate}}</span>
         </p>
-        <p mat-line>Hey guy! how are you</p>
+        <p mat-line>{{chat.lastMessage}}</p>
         <mat-divider></mat-divider>
       </mat-list-option>
     </mat-selection-list>
@@ -31,12 +31,14 @@
     </div>
     <mat-divider></mat-divider>
     <div class="chat-area" [ngStyle]="{'background-color':background}">
-
+      <div *ngFor="let item of lstMessage|async">
+        {{item.text}}
+      </div>
     </div>
     <div class="input-area">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Send messages</mat-label>
-        <input matInput placeholder="Enter your message..." [formControl]="messagesControl">
+        <input matInput placeholder="Enter your message..." [formControl]="messagesControl"
+          (keydown.enter)="sendMessage()">
         <button mat-icon-button matSuffix (click)="sendMessage()">
           <mat-icon>send</mat-icon>
         </button>

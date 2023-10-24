@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Timestamp } from 'firebase/firestore';
 import { ProfileUser } from 'src/app/models/user';
 import { ChatsService } from 'src/app/services/chats.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -15,11 +16,12 @@ export class HomeComponent implements OnInit {
   lstUser: any = [];
   lstChat: any = [];
   chatSelect: any;
+  lstMessage: any = [];
   messagesControl = new FormControl('');
   constructor(
     private usersService: UsersService,
     private chatService: ChatsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUserCurent();
@@ -27,6 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   getUserCurent() {
+    debugger
     this.usersService.currentUserProfile$.subscribe((res) => {
       this.userCurent = res;
       if (this.userCurent.uid) {
@@ -58,16 +61,14 @@ export class HomeComponent implements OnInit {
   }
 
   getListChat(userId: any) {
+    debugger
     this.chatService.myListChat(userId).subscribe((res) => {
       if (res) {
         this.lstChat = res;
         this.lstChat.map((item: any) => {
           let index = item.userIds.indexOf(userId) == 0 ? 1 : 0;
           item.chatName = item.users[index].displayName;
-          item.avatar =
-            item.users[index].photoURL == ''
-              ? null
-              : item.users[index].photoURL;
+          item.avatar = item.users[index].photoURL == '' ? null : item.users[index].photoURL;
         });
       }
       console.log('lstChat', this.lstChat);
@@ -76,7 +77,19 @@ export class HomeComponent implements OnInit {
 
   selectChat(chat: any) {
     this.chatSelect = chat;
-    console.log(chat);
+    this.lstMessage = this.chatService.getChatSelect(chat.id);
   }
-  sendMessage() {}
+  sendMessage() {
+    if (this.messagesControl.value && this.chatSelect) {
+      let message: Object = {
+        text: this.messagesControl.value,
+        senderId: this.userCurent.uid,
+        sentDate: Timestamp.fromDate(new Date())
+      }
+      this.chatService.addChatMessage(this.chatSelect.id, message).subscribe();
+      this.messagesControl.setValue('');
+    }
+  }
+
+
 }

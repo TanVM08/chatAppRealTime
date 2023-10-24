@@ -14,10 +14,40 @@
   width: 70%;
   border-radius: 16px;
   margin: 20px;
+  padding: 24px;
+  background: #c5cae9;
 }
+
+.messages-header {
+  display: flex;
+  margin-bottom: 8px;
+
+  >h2 {
+    margin: 0;
+    line-height: 40px;
+  }
+}
+
+.messages-header>img {
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  height: 40px;
+}
+
+.chat-area {
+  height: 80%;
+  background-color: white;
+}
+
 
 .search-input {
   margin: 16px;
+}
+
+.input-area {
+  padding-top: 16px;
+  padding-bottom: 8px;
 }
 
 .chat {

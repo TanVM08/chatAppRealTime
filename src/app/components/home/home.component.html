@@ -13,8 +13,8 @@
 
     <mat-selection-list [multiple]="false">
       <mat-divider></mat-divider>
-      <mat-list-option *ngFor="let chat of lstChat" [value]="chat.id">
-        <img matListAvatar [src]="chat.avatar?chat.avatar: '/assets/images/image-placeholder.png'">
+      <mat-list-option *ngFor="let chat of lstChat" [value]="chat.id" (click)="selectChat(chat)">
+        <img matListAvatar [src]="chat.avatar ? chat.avatar: '/assets/images/image-placeholder.png'">
         <p mat-line class="chat">
           <span class="chat-name"> {{chat.chatName}}</span>
           <span class="chat-date">10/06/2023</span>
@@ -24,5 +24,23 @@
       </mat-list-option>
     </mat-selection-list>
   </div>
-  <div class="messages mat-elevation-z5"></div>
+  <div class="messages mat-elevation-z5" *ngIf="chatSelect">
+    <div class="messages-header">
+      <img [src]="chatSelect.avatar ? chatSelect.avatar: '/assets/images/image-placeholder.png'">
+      <h2>{{chatSelect.chatName}}</h2>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="chat-area" [ngStyle]="{'background-color':background}">
+
+    </div>
+    <div class="input-area">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Send messages</mat-label>
+        <input matInput placeholder="Enter your message..." [formControl]="messagesControl">
+        <button mat-icon-button matSuffix (click)="sendMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
 </div>

@@ -38,6 +38,12 @@
 .chat-area {
   height: 80%;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.chat-area > :first-child{
+  margin-top: auto;
 }
 
 
@@ -67,11 +73,12 @@
 .chat-bubble-container {
   display: flex;
   width: 100%;
-  justify-content: start;
+  justify-content: flex-starts;
 }
-
+ 
 .chat-content {
   padding: 15px;
+  max-width: 50%
 }
 
 .chat-bubble {

@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private chatService: ChatsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUserCurent();
@@ -44,20 +44,23 @@ export class HomeComponent implements OnInit {
   }
 
   createChat(item: ProfileUser) {
-    let chat: object = {
-      userIds: [this.userCurent?.uid, item.uid],
-      users: [
-        {
-          displayName: this.userCurent?.displayName ?? '',
-          photoURL: this.userCurent?.photoURL ?? '',
-        },
-        {
-          displayName: item?.displayName ?? '',
-          photoURL: item?.photoURL ?? '',
-        },
-      ],
-    };
-    this.chatService.createChat(chat);
+    let isCheck = this.isCheckChat(this.lstChat, item.uid);
+    if (isCheck == 0) {
+      let chat: object = {
+        userIds: [this.userCurent?.uid, item.uid],
+        users: [
+          {
+            displayName: this.userCurent?.displayName ?? '',
+            photoURL: this.userCurent?.photoURL ?? '',
+          },
+          {
+            displayName: item?.displayName ?? '',
+            photoURL: item?.photoURL ?? '',
+          },
+        ],
+      };
+      this.chatService.createChat(chat);
+    }
   }
 
   getListChat(userId: any) {
@@ -99,6 +102,17 @@ export class HomeComponent implements OnInit {
         });
       this.messagesControl.setValue('');
     }
+  }
+
+  isCheckChat(lstChat: any, uid: string): number {
+    let rs: number = 0;
+    lstChat.map((chat: any) => {
+      if (chat.userIds.includes(uid)) {
+        this.selectChat(chat);
+        rs = 1;
+      }
+    })
+    return rs;
   }
 
   scrollToBottom() {

@@ -9,6 +9,6 @@ export class DatePipePipe implements PipeTransform {
   constructor(private datePipe: DatePipe) {}
 
   transform(date: Timestamp | undefined) {
-    return this.datePipe.transform(date?.toMillis(), 'short') ?? '';
+    return this.datePipe.transform(date?.toMillis(), 'dd/MM/yy HH:mm:ss') ?? '';
   }
 }

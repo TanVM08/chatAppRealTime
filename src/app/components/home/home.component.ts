@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
   }
 
   getUserCurent() {
-    debugger;
     this.usersService.currentUserProfile$.subscribe((res) => {
       this.userCurent = res;
       if (this.userCurent.uid) {
@@ -62,7 +61,6 @@ export class HomeComponent implements OnInit {
   }
 
   getListChat(userId: any) {
-    debugger;
     this.chatService.myListChat(userId).subscribe((res) => {
       if (res) {
         this.lstChat = res;

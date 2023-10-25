@@ -48,7 +48,8 @@
       <mat-form-field appearance="outline" class="full-width">
         <input matInput placeholder="Enter your message..." [formControl]="messagesControl"
           (keydown.enter)="sendMessage()">
-        <button mat-icon-button matSuffix (click)="sendMessage()">
+        <button mat-icon-button matSuffix (click)="sendMessage()" disabled="{{!messagesControl.value}}"
+          [ngClass]="{ btn: messagesControl.value }">
           <mat-icon>send</mat-icon>
         </button>
       </mat-form-field>

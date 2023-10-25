@@ -17,7 +17,7 @@ import { Observable, concatMap, from, switchMap } from 'rxjs';
   providedIn: 'root',
 })
 export class ChatsService {
-  constructor(private firestore: Firestore, private authService: AuthService) { }
+  constructor(private firestore: Firestore, private authService: AuthService) {}
 
   createChat(chat: any): Observable<any> {
     const ref = collection(this.firestore, 'chats');
@@ -35,14 +35,17 @@ export class ChatsService {
     const chatRef = doc(this.firestore, 'chats', chatId);
     return from(addDoc(ref, message)).pipe(
       switchMap((res) => {
-        return updateDoc(chatRef, { lastMessage: message.text, lastMessageDate: message.sentDate })
+        return updateDoc(chatRef, {
+          lastMessage: message.text,
+          lastMessageDate: message.sentDate,
+        });
       })
     );
   }
 
   getChatSelect(chatId: string): Observable<any> {
-    const ref = collection(this.firestore, 'chat', chatId, 'message')
+    const ref = collection(this.firestore, 'chats', chatId, 'messages');
     const sqlquery = query(ref, orderBy('sentDate', 'asc'));
-    return collectionData(sqlquery) as Observable<any>
+    return collectionData(sqlquery) as Observable<any>;
   }
 }

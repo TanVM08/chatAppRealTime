@@ -26,6 +26,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
+import { DatePipePipe } from './pipe/date-pipe.pipe';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,7 @@ import { MatListModule } from '@angular/material/list';
     HomeComponent,
     ProfileComponent,
     SpinnerComponent,
+    DatePipePipe,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,7 @@ import { MatListModule } from '@angular/material/list';
     MatSelectModule,
     MatListModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

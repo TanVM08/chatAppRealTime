@@ -63,3 +63,37 @@
   font-size: 0.7rem;
   color: rgb(0, 0, 0, 0.7);
 }
+
+.chat-bubble-container {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+}
+
+.chat-content {
+  padding: 15px;
+}
+
+.chat-bubble {
+  background: #c5cae9;
+  padding: 8px 100px 18px 8px;
+  border-radius: 8px;
+  width: fit-content;
+  position: relative;
+}
+
+.chat-time {
+  position: absolute;
+  bottom: 2px;
+  right: 8px;
+  font-size: 0.7em;
+  color: rgb(0, 0, 0, 0.7);
+}
+
+.me {
+  justify-content: flex-end;
+
+  .chat-bubble {
+    background: #00FFFF;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Timestamp } from 'firebase/firestore';
 import { ProfileUser } from 'src/app/models/user';
@@ -11,17 +11,18 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('scrollBottom') scrollBottom!: ElementRef;
   userCurent: any;
   background: string = 'white';
   lstUser: any = [];
   lstChat: any = [];
   chatSelect: any;
-  lstMessage: any = [];
+  lstMessage: any;
   messagesControl = new FormControl('');
   constructor(
     private usersService: UsersService,
     private chatService: ChatsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getUserCurent();
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit {
   }
 
   getUserCurent() {
-    debugger
+    debugger;
     this.usersService.currentUserProfile$.subscribe((res) => {
       this.userCurent = res;
       if (this.userCurent.uid) {
@@ -61,14 +62,17 @@ export class HomeComponent implements OnInit {
   }
 
   getListChat(userId: any) {
-    debugger
+    debugger;
     this.chatService.myListChat(userId).subscribe((res) => {
       if (res) {
         this.lstChat = res;
         this.lstChat.map((item: any) => {
           let index = item.userIds.indexOf(userId) == 0 ? 1 : 0;
           item.chatName = item.users[index].displayName;
-          item.avatar = item.users[index].photoURL == '' ? null : item.users[index].photoURL;
+          item.avatar =
+            item.users[index].photoURL == ''
+              ? null
+              : item.users[index].photoURL;
         });
       }
       console.log('lstChat', this.lstChat);
@@ -77,19 +81,33 @@ export class HomeComponent implements OnInit {
 
   selectChat(chat: any) {
     this.chatSelect = chat;
-    this.lstMessage = this.chatService.getChatSelect(chat.id);
+    this.chatService.getChatSelect(chat.id).subscribe((res) => {
+      this.lstMessage = res;
+      console.log('lstMessage', this.lstMessage);
+    });
   }
+
   sendMessage() {
     if (this.messagesControl.value && this.chatSelect) {
       let message: Object = {
         text: this.messagesControl.value,
         senderId: this.userCurent.uid,
-        sentDate: Timestamp.fromDate(new Date())
-      }
-      this.chatService.addChatMessage(this.chatSelect.id, message).subscribe();
+        sentDate: Timestamp.fromDate(new Date()),
+      };
+      this.chatService
+        .addChatMessage(this.chatSelect.id, message)
+        .subscribe(() => {
+          this.scrollToBottom();
+        });
       this.messagesControl.setValue('');
     }
   }
 
-
+  scrollToBottom() {
+    setTimeout(() => {
+      if (this.scrollBottom) {
+        this.scrollBottom.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
 }

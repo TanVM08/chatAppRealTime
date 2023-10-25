@@ -17,7 +17,7 @@
         <img matListAvatar [src]="chat.avatar ? chat.avatar: '/assets/images/image-placeholder.png'">
         <p mat-line class="chat">
           <span class="chat-name"> {{chat.chatName}}</span>
-          <span class="chat-date">{{chat.lastMessageDate}}</span>
+          <span class="chat-date">{{chat.lastMessageDate|datePipe}}</span>
         </p>
         <p mat-line>{{chat.lastMessage}}</p>
         <mat-divider></mat-divider>
@@ -31,9 +31,18 @@
     </div>
     <mat-divider></mat-divider>
     <div class="chat-area" [ngStyle]="{'background-color':background}">
-      <div *ngFor="let item of lstMessage|async">
-        {{item.text}}
-      </div>
+      <ng-container *ngIf="lstMessage">
+        <div *ngFor="let item of lstMessage" class="chat-bubble-container"
+          [ngClass]="{ me: item.senderId === userCurent.uid }">
+          <div class="chat-content">
+            <div class="chat-bubble">
+              {{ item.text }}
+              <span class="chat-time">{{item.sentDate | datePipe}}</span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div #scrollBottom></div>
     </div>
     <div class="input-area">
       <mat-form-field appearance="outline" class="full-width">

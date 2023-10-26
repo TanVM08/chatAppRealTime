@@ -1,11 +1,12 @@
 export const environment = {
   firebase: {
-    projectId: 'angular-sign-up',
-    appId: '1:916691174045:web:677a900ca493c7d0e9ca74',
-    storageBucket: 'angular-sign-up.appspot.com',
-    apiKey: 'AIzaSyAaS6ztStcHbGSznGNBchaa_ZN5B02Zk6c',
-    authDomain: 'angular-sign-up.firebaseapp.com',
-    messagingSenderId: '916691174045',
+    apiKey: 'AIzaSyAO48fCOZkNv96unlvg-YuF9EQzmRJWYHU',
+    authDomain: 'real-time-chat-cb8b6.firebaseapp.com',
+    projectId: 'real-time-chat-cb8b6',
+    storageBucket: 'real-time-chat-cb8b6.appspot.com',
+    messagingSenderId: '822629536116',
+    appId: '1:822629536116:web:730b30f1775e4f1b535c21',
+    measurementId: 'G-CEZ7237RWY',
   },
-  production: true
+  production: true,
 };

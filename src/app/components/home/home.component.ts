@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private chatService: ChatsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getUserCurent();
@@ -76,7 +76,6 @@ export class HomeComponent implements OnInit {
               : item.users[index].photoURL;
         });
       }
-      console.log('lstChat', this.lstChat);
     });
   }
 
@@ -84,7 +83,6 @@ export class HomeComponent implements OnInit {
     this.chatSelect = chat;
     this.chatService.getChatSelect(chat.id).subscribe((res) => {
       this.lstMessage = res;
-      console.log('lstMessage', this.lstMessage);
     });
   }
 
@@ -111,7 +109,7 @@ export class HomeComponent implements OnInit {
         this.selectChat(chat);
         rs = 1;
       }
-    })
+    });
     return rs;
   }
 

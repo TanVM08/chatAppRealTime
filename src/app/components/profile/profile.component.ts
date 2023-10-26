@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.currentUserProfile$.subscribe((user) => {
-      console.log('user', user);
       this.profileForm.patchValue({ ...user });
     });
     this.getCurrentUser();
@@ -45,7 +44,6 @@ export class ProfileComponent implements OnInit {
   getCurrentUser() {
     this.auth.currentUser.subscribe((res) => {
       if (res?.uid) {
-        console.log('res', res);
       }
     });
   }

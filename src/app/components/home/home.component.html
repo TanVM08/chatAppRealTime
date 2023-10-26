@@ -14,7 +14,8 @@
     <mat-selection-list [multiple]="false">
       <mat-divider></mat-divider>
       <mat-list-option *ngFor="let chat of lstChat" [value]="chat.id" (click)="selectChat(chat)">
-        <img matListAvatar [src]="chat.avatar ? chat.avatar: '../../assets/images/image-placeholder.png'">
+        <img matListAvatar
+          [src]="chat.avatar ? chat.avatar: '../..chatAppRealTime/assets/images/image-placeholder.png'">
         <p mat-line class="chat">
           <span class="chat-name"> {{chat.chatName}}</span>
           <span class="chat-date">{{chat.lastMessageDate|datePipe}}</span>
@@ -26,7 +27,7 @@
   </div>
   <div class="messages mat-elevation-z5" *ngIf="chatSelect">
     <div class="messages-header">
-      <img [src]="chatSelect.avatar ? chatSelect.avatar: '../../assets/images/image-placeholder.png'">
+      <img [src]="chatSelect.avatar ? chatSelect.avatar: '../..chatAppRealTime/assets/images/image-placeholder.png'">
       <h2>{{chatSelect.chatName}}</h2>
     </div>
     <mat-divider></mat-divider>

@@ -21,11 +21,11 @@
 .messages-header {
   display: flex;
   margin-bottom: 8px;
+}
 
-  >h2 {
-    margin: 0;
-    line-height: 40px;
-  }
+.h2 {
+  margin: 0;
+  line-height: 40px;
 }
 
 .messages-header>img {
@@ -42,7 +42,8 @@
   flex-direction: column;
   overflow: auto;
 }
-.chat-area > :first-child{
+
+.chat-area> :first-child {
   margin-top: auto;
 }
 
@@ -75,7 +76,7 @@
   width: 100%;
   justify-content: flex-starts;
 }
- 
+
 .chat-content {
   padding: 15px;
   max-width: 50%
@@ -99,10 +100,10 @@
 
 .me {
   justify-content: flex-end;
+}
 
-  .chat-bubble {
-    background: #00FFFF;
-  }
+.me .chat-bubble {
+  background: #00FFFF;
 }
 
 .btn {
